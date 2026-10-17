@@ -1,0 +1,827 @@
+[
+  {
+    "test_id": "TC-02",
+    "product_name": "Budget Core i5 Laptop (Omitted & Ambiguous Specs Case)",
+    "prompt_version": "v2.0_schema_constrained",
+    "model": "gemini-3.8-flash",
+    "timestamp": "2026-10-17 16:38:48",
+    "latency_ms": 20185,
+    "prompt_tokens": 900,
+    "output_tokens": 1996,
+    "total_tokens": 2896,
+    "validation_status": "\u2705 100% Pydantic Schema Valid",
+    "raw_json_output": {
+      "avoid_if": [
+        "You intend to play modern AAA or competitive esports games requiring dedicated graphics.",
+        "Your workflow relies on heavy multitasking, virtualization, Docker, or large IDEs that saturate 8GB RAM.",
+        "You plan to work outdoors or in brightly lit spaces where unrated display brightness might wash out.",
+        "You require large onboard storage without depending on external drives or cloud services."
+      ],
+      "buy_if": [
+        "You are looking for an affordable everyday laptop for web browsing, office suites, and video streaming.",
+        "You prioritize standard 15.6-inch screen real estate and modern Intel 12th-Gen energy efficiency on a budget.",
+        "Your computing needs rarely exceed standard browser multitasking and basic media consumption."
+      ],
+      "buyer_risk_level": "HIGH RISK",
+      "buyer_warnings": [
+        "Display panel brightness (nits), color accuracy (sRGB), and panel technology (IPS vs TN) are omitted; budget panels often ship with dim 220-250 nit TN displays.",
+        "RAM expandability is not specified; if the 8GB DDR4 is soldered, upgrading will be impossible.",
+        "Battery capacity (Watt-hours) and expected runtimes are omitted.",
+        "256GB SSD provides very limited usable space after accounting for Windows 11 system files and standard software updates."
+      ],
+      "executive_summary": "The Budget Core i5 Laptop provides a solid entry-level computing foundation via Intel's 10-core 12th-Gen Core i5-1235U. However, it is compromised by limited 8GB memory, minimal 256GB storage, and omitted critical specifications regarding display quality, battery capacity, and RAM upgradeability.",
+      "extracted_specs": [
+        {
+          "everyday_analogy": "The vehicle engine: a capable modern engine designed for reliable commuting and efficiency rather than heavy towing.",
+          "feature": "Processor (CPU)",
+          "is_missing_or_vague": false,
+          "raw_value": "Intel Core i5-1235U processor (10 cores, up to 4.4 GHz)",
+          "simplified_explanation": "A balanced 12th-generation Intel processor with 2 performance cores and 8 efficient cores that easily handles web browsing, documents, and media playback."
+        },
+        {
+          "everyday_analogy": "The desk surface area: an 8GB desk fits a notebook and a couple of open folders, but clutters quickly under heavy work.",
+          "feature": "System Memory (RAM)",
+          "is_missing_or_vague": true,
+          "raw_value": "8GB DDR4 RAM",
+          "simplified_explanation": "8GB provides enough capacity for everyday single-tasking, but channel configuration (single vs dual) and upgradeability are unstated."
+        },
+        {
+          "everyday_analogy": "The filing cabinet drawer: a compact drawer that fills quickly once operating files and essential tools are stored.",
+          "feature": "Storage (SSD)",
+          "is_missing_or_vague": false,
+          "raw_value": "256GB PCIe NVMe SSD",
+          "simplified_explanation": "Fast solid-state drive that ensures quick boot times, though storage capacity is small and will deplete quickly."
+        },
+        {
+          "everyday_analogy": "The visual translator: a sketch artist competent for basic charts and casual doodles, but not detailed 3D canvases.",
+          "feature": "Graphics (GPU)",
+          "is_missing_or_vague": false,
+          "raw_value": "Intel Iris Xe Graphics",
+          "simplified_explanation": "Integrated graphics sharing system RAM, suitable for everyday video decoding, streaming, and casual 2D gaming."
+        },
+        {
+          "everyday_analogy": "A window into a room: clear 1080p resolution, but brightness is unlisted, akin to an unknown bulb wattage in sunlight.",
+          "feature": "Display",
+          "is_missing_or_vague": true,
+          "raw_value": "15.6-inch FHD (1920x1080) anti-glare display",
+          "simplified_explanation": "Full HD resolution provides crisp text, but panel type (IPS/TN), peak brightness in nits, and color gamut are completely omitted."
+        },
+        {
+          "everyday_analogy": "The fuel tank: completely unknown capacity, making it impossible to predict how far you can drive without a recharge.",
+          "feature": "Battery Capacity",
+          "is_missing_or_vague": true,
+          "raw_value": "NOT SPECIFIED",
+          "simplified_explanation": "Neither the battery watt-hour (Wh) rating nor the estimated runtimes are disclosed."
+        },
+        {
+          "everyday_analogy": "The physical entry doors: standard entryways that accept modern peripherals as well as older USB thumb drives.",
+          "feature": "I/O Ports & Connectivity",
+          "is_missing_or_vague": false,
+          "raw_value": "USB 3.2, USB 2.0, HDMI, Audio Combo Jack. Wi-Fi 6, Bluetooth 5.0",
+          "simplified_explanation": "Standard assortment of peripheral ports and current-standard Wi-Fi 6 for solid wireless connectivity."
+        }
+      ],
+      "future_proofing_years": "2-3 Years: The 10-core 12th-Gen CPU provides reasonable longevity, but 8GB RAM and a 256GB SSD will face serious constraints as OS requirements and application memory footprints grow.",
+      "missing_specifications": [
+        "Display peak brightness (nits)",
+        "Display panel technology (IPS vs TN) and color accuracy (sRGB/NTSC %)",
+        "Display refresh rate",
+        "Battery capacity in Watt-hours (Wh) and estimated battery life",
+        "RAM upgradeability (soldered vs SO-DIMM slots)",
+        "Storage expansion options (secondary M.2 or 2.5-inch bay)"
+      ],
+      "persona_evaluations": [
+        {
+          "key_advantages": [
+            "10-core Intel Core i5 processor offers decent compiling power for lightweight codebases.",
+            "Full HD 15.6-inch screen provides adequate space for side-by-side terminal and code editor."
+          ],
+          "key_bottlenecks": [
+            "8GB RAM is severely insufficient for modern developer stacks, Docker containers, local VMs, and IDEs like Android Studio.",
+            "256GB storage provides inadequate space for heavy development tools, toolchains, and project builds."
+          ],
+          "persona": "Software Developer",
+          "reasoning": "Modern software engineering environments demand at least 16GB of RAM and substantial fast storage. 8GB unified RAM and 256GB storage will cause constant paging to disk and throttle developer productivity.",
+          "suitability_score": 3
+        },
+        {
+          "key_advantages": [
+            "FHD resolution displays games at native 1080p without odd scaling artifacts."
+          ],
+          "key_bottlenecks": [
+            "Intel Iris Xe integrated graphics cannot deliver high frame rates in modern competitive games.",
+            "Unspecified display refresh rate almost certainly implies standard 60Hz rather than 120Hz/144Hz+.",
+            "8GB single-channel or shared system RAM will choke graphical throughput."
+          ],
+          "persona": "Competitive Gamer",
+          "reasoning": "Competitive gaming necessitates sustained frame rates, high refresh rates (120Hz+), low response times, and dedicated GPU horsepower, none of which this entry-level machine provides.",
+          "suitability_score": 1
+        },
+        {
+          "key_advantages": [
+            "Capable Core i5 processor handles typical schoolwork, productivity suites, and web browsing easily.",
+            "Wi-Fi 6 ensures fast, stable connectivity on campus or home networks.",
+            "Full HD anti-glare screen is comfortable for reading documents."
+          ],
+          "key_bottlenecks": [
+            "Display brightness is unrated and likely dim in well-lit lecture halls or outdoor spaces.",
+            "Battery capacity is unstated, presenting a risk for all-day unplugged campus use."
+          ],
+          "persona": "Everyday / Student",
+          "reasoning": "For document editing, Zoom calls, web research, and media consumption, the CPU performance is more than adequate. It earns an average score primarily due to the unverified battery endurance and screen quality.",
+          "suitability_score": 6
+        }
+      ],
+      "product_name": "Budget Core i5 Laptop (Omitted & Ambiguous Specs Case)"
+    }
+  },
+  {
+    "test_id": "TC-06",
+    "product_name": "Samsung Galaxy S24 Ultra (Flagship Smartphone)",
+    "prompt_version": "v2.0_schema_constrained",
+    "model": "gemini-3.8-flash",
+    "timestamp": "2026-10-17 16:57:26",
+    "latency_ms": 24103,
+    "prompt_tokens": 1150,
+    "output_tokens": 1403,
+    "total_tokens": 4137,
+    "validation_status": "\u2705 100% Pydantic Schema Valid",
+    "raw_json_output": {
+      "avoid_if": [
+        "You want a compact, lightweight phone that is comfortable for one-handed operation",
+        "You require expandable storage via MicroSD card or expect an included wall charging adapter",
+        "You only need basic calling, texting, and social media apps and cannot justify a premium flagship price tag"
+      ],
+      "buy_if": [
+        "You demand best-in-class outdoor display visibility, extreme sharpness, and a smooth 120Hz refresh rate",
+        "You rely on stylus note-taking or digital illustration on the go via the integrated S-Pen",
+        "You prioritize top-tier mobile gaming, heavy multitasking, and multi-lens telephoto camera versatility"
+      ],
+      "buyer_risk_level": "LOW RISK",
+      "buyer_warnings": [
+        "The 45W wall charger is not bundled in the box, requiring a separate purchase to achieve maximum charging speed",
+        "Internal storage is non-expandable due to the absence of a MicroSD slot",
+        "Weighing 232g with angular titanium corners, the device can cause hand fatigue during prolonged single-handed use"
+      ],
+      "executive_summary": "The Samsung Galaxy S24 Ultra is a premier flagship smartphone built with titanium, featuring cutting-edge processing power, an elite anti-reflective display, and an integrated S-Pen stylus. It caters directly to power users, mobile creatives, and gamers needing uncompromising performance, provided they do not mind its hefty physical footprint and separate charger expense.",
+      "extracted_specs": [
+        {
+          "everyday_analogy": "The engine of a high-end sports car that handles demanding tasks and complex calculations without stuttering.",
+          "feature": "Processor (CPU/GPU)",
+          "is_missing_or_vague": false,
+          "raw_value": "Qualcomm Snapdragon 8 Gen 3 for Galaxy (4nm)",
+          "simplified_explanation": "Top-of-the-line mobile processing chip custom-tuned for high responsiveness in apps, multitasking, and 3D games."
+        },
+        {
+          "everyday_analogy": "A massive office desk that allows you to have a dozen heavy books and projects open simultaneously without slowing down.",
+          "feature": "Memory (RAM)",
+          "is_missing_or_vague": false,
+          "raw_value": "12GB LPDDR5X",
+          "simplified_explanation": "Ample high-speed memory enabling background apps to stay active without reloading."
+        },
+        {
+          "everyday_analogy": "A rapid-access digital filing cabinet storing your permanent files, videos, and applications.",
+          "feature": "Storage",
+          "is_missing_or_vague": false,
+          "raw_value": "256GB UFS 4.0",
+          "simplified_explanation": "Fast baseline internal storage that delivers snappy app installation and high-speed data transfers, but cannot be expanded via memory card."
+        },
+        {
+          "everyday_analogy": "A stadium-grade billboard that is crisp, smooth, and easily readable even under harsh midday sunlight.",
+          "feature": "Display",
+          "is_missing_or_vague": false,
+          "raw_value": "6.8-inch Dynamic AMOLED 2X, QHD+ (3120x1440), 1-120Hz adaptive refresh rate, 2600 nits peak brightness, Corning Gorilla Armor",
+          "simplified_explanation": "Spacious, hyper-detailed screen that saves battery by adjusting frame rates and combats outdoor glare with immense brightness and specialized anti-reflective glass."
+        },
+        {
+          "everyday_analogy": "A full bag of interchangeable professional camera lenses ranging from ultrawide to distant telephoto zoom.",
+          "feature": "Camera System",
+          "is_missing_or_vague": false,
+          "raw_value": "Quad rear: 200MP main with OIS, 50MP periscope (5x), 10MP (3x), 12MP ultra-wide; 12MP front",
+          "simplified_explanation": "A versatile camera suite that provides ultra-detailed shots and stabilization across wide-angle and long-distance zoom shots."
+        },
+        {
+          "everyday_analogy": "A heavy-duty fuel tank coupled with a rapid-fill pump mechanism.",
+          "feature": "Battery & Charging",
+          "is_missing_or_vague": false,
+          "raw_value": "5000mAh battery with 45W wired and 15W wireless charging (charger NOT included in box)",
+          "simplified_explanation": "Standard flagship battery capacity providing all-day power with fast wired recharge support, though the wall adapter must be bought separately."
+        }
+      ],
+      "future_proofing_years": "4-5+ years based on the Snapdragon 8 Gen 3 chipset, generous 12GB LPDDR5X RAM capacity, UFS 4.0 storage speed, and robust titanium/IP68 construction.",
+      "missing_specifications": [],
+      "persona_evaluations": [
+        {
+          "key_advantages": [
+            "12GB RAM and powerful SoC smoothly drive mobile test environments, API testing, and remote sessions",
+            "Samsung DeX allows output to external monitors for a desktop-like workflow",
+            "Embedded S-Pen allows fast visual sketching of software architecture diagrams"
+          ],
+          "key_bottlenecks": [
+            "Mobile operating system cannot natively run full desktop IDEs or Docker containers locally",
+            "Expensive investment if primary development happens on desktop/laptop hardware"
+          ],
+          "persona": "Software Developer",
+          "reasoning": "While mobile OS constraints prevent it from serving as a primary coding workstation, its immense horsepower, Samsung DeX desktop mode, and S-Pen make it an exceptional secondary companion for development, code review, and debugging.",
+          "suitability_score": 7
+        },
+        {
+          "key_advantages": [
+            "Snapdragon 8 Gen 3 GPU easily achieves high frame rates on demanding mobile titles",
+            "120Hz adaptive AMOLED screen offers fluid motion and sharp visual response",
+            "Vapor chamber and flagship hardware sustain high performance under load"
+          ],
+          "key_bottlenecks": [
+            "Substantial 232g weight may cause wrist strain during long mobile esports tournaments",
+            "No dedicated physical shoulder triggers or specialized gaming accessories bundled"
+          ],
+          "persona": "Competitive Gamer",
+          "reasoning": "It houses the fastest consumer mobile chip currently available, paired with an ultra-responsive 120Hz display, making it top tier for competitive mobile esports despite not being a gamer-branded phone.",
+          "suitability_score": 9
+        },
+        {
+          "key_advantages": [
+            "Built-in S-Pen transforms the phone into an effective digital notebook for lectures and PDF signing",
+            "5000mAh battery easily lasts through full days of classes and multimedia streaming",
+            "Durable Gorilla Armor and IP68 rating survive accidental drops, water exposure, and daily backpack wear"
+          ],
+          "key_bottlenecks": [
+            "Very high price tag for typical student budgets",
+            "Oversized chassis is difficult to use single-handedly while commuting or walking"
+          ],
+          "persona": "Everyday / Student",
+          "reasoning": "The phone excels at note-taking, media consumption, and daily tasks, but its extreme price tag and sheer physical bulk represent overkill for casual users who only need general-purpose smartphone functionality.",
+          "suitability_score": 8
+        }
+      ],
+      "product_name": "Samsung Galaxy S24 Ultra"
+    }
+  },
+  {
+    "test_id": "TC-07",
+    "product_name": "Men's Classic Slim-Fit Crewneck T-Shirt (Out-of-Scope Lifestyle Product)",
+    "prompt_version": "v2.0_schema_constrained",
+    "model": "gemini-3.8-flash",
+    "timestamp": "2026-10-17 17:02:10",
+    "latency_ms": 67255,
+    "prompt_tokens": 1385,
+    "output_tokens": 319,
+    "total_tokens": 2170,
+    "validation_status": "\u2705 100% Pydantic Schema Valid",
+    "raw_json_output": {
+      "avoid_if": [
+        "You require computing, gaming, or digital workflow capabilities."
+      ],
+      "buy_if": [
+        "You intend to purchase general non-tech goods or lifestyle apparel."
+      ],
+      "buyer_risk_level": "OUT OF SCOPE",
+      "buyer_warnings": [
+        "This product is outside SpecSense AI's hardware domain. Please provide specifications for a computer, mobile device, or consumer electronic gadget."
+      ],
+      "executive_summary": "OUT OF SCOPE: SpecSense AI is exclusively designed to analyze consumer electronics and computing specifications. This product is a non-tech lifestyle/apparel item and does not possess digital computing specifications.",
+      "extracted_specs": [],
+      "future_proofing_years": "NOT APPLICABLE",
+      "missing_specifications": [],
+      "persona_evaluations": [
+        {
+          "key_advantages": [],
+          "key_bottlenecks": [],
+          "persona": "Software Developer",
+          "reasoning": "Not applicable: Product is a non-electronic item.",
+          "suitability_score": 0
+        },
+        {
+          "key_advantages": [],
+          "key_bottlenecks": [],
+          "persona": "Competitive Gamer",
+          "reasoning": "Not applicable: Product is a non-electronic item.",
+          "suitability_score": 0
+        },
+        {
+          "key_advantages": [],
+          "key_bottlenecks": [],
+          "persona": "Everyday / Student",
+          "reasoning": "Not applicable: Product is a non-electronic item.",
+          "suitability_score": 0
+        }
+      ],
+      "product_name": "Men's Classic Slim-Fit Crewneck T-Shirt"
+    }
+  },
+  {
+    "test_id": "TC-01",
+    "product_name": "Apple MacBook Air 13 M3 (Well-Documented Standard Case)",
+    "prompt_version": "v2.0_schema_constrained",
+    "model": "gemini-3.8-flash",
+    "timestamp": "2026-10-17 18:20:19",
+    "latency_ms": 30110,
+    "prompt_tokens": 1474,
+    "output_tokens": 1371,
+    "total_tokens": 5191,
+    "validation_status": "\u2705 100% Pydantic Schema Valid",
+    "raw_json_output": {
+      "avoid_if": [
+        "You prioritize competitive PC gaming or rely on Windows-exclusive multiplayer titles with kernel-level anti-cheat.",
+        "Your workflow requires sustained, heavy 3D rendering or prolonged compute loads that demand active fan cooling.",
+        "You need user-upgradeable internal storage or memory after purchase."
+      ],
+      "buy_if": [
+        "You want an ultra-portable, silent laptop with exceptional all-day battery life (up to 18 hours).",
+        "You need a future-ready productivity and programming machine with 16GB of unified memory and 512GB of fast storage.",
+        "You frequently work in well-lit environments where a bright 500-nit, color-accurate screen is essential."
+      ],
+      "buyer_risk_level": "LOW RISK",
+      "buyer_warnings": [
+        "Memory and storage are permanently soldered to the logic board and cannot be upgraded after purchase.",
+        "Fanless passive cooling design will throttle clock speeds during sustained heavy workloads such as extended video renders.",
+        "Display refresh rate is locked to standard 60Hz without Apple ProMotion (120Hz) support."
+      ],
+      "executive_summary": "The 13-inch Apple MacBook Air M3 is an exceptionally balanced ultraportable laptop engineered for efficiency, build quality, and everyday speed. Equipped with 16GB of unified memory and a 512GB SSD, it eliminates the multitasking and storage limitations of base configurations while delivering silent operation and industry-leading battery life. It represents a low-risk, high-value investment for productivity, general development, and academic work.",
+      "extracted_specs": [
+        {
+          "everyday_analogy": "The central kitchen chef coordinating every task, balancing high-speed execution with minimal power draw.",
+          "feature": "Processor (CPU)",
+          "is_missing_or_vague": false,
+          "raw_value": "Apple M3 chip with 8-core CPU",
+          "simplified_explanation": "Provides fast app launches, smooth browsing, and efficient multi-tasking without generating excess heat."
+        },
+        {
+          "everyday_analogy": "A dedicated visual sketch artist handling graphic detail and hardware-assisted visual rendering.",
+          "feature": "Graphics (GPU) & Neural Engine",
+          "is_missing_or_vague": false,
+          "raw_value": "10-core GPU, 16-core Neural Engine",
+          "simplified_explanation": "Accelerates photo and video editing, casual gaming, and on-device machine learning tasks."
+        },
+        {
+          "everyday_analogy": "A wide desk that comfortably holds numerous active documents and open applications at once.",
+          "feature": "Unified Memory (RAM)",
+          "is_missing_or_vague": false,
+          "raw_value": "16GB unified memory",
+          "simplified_explanation": "Ensures smooth multitasking with dozens of browser tabs, development tools, and media apps without slowing down."
+        },
+        {
+          "everyday_analogy": "A mid-sized, ultra-fast filing cabinet that instantly stores and retrieves all your applications and files.",
+          "feature": "Storage (SSD)",
+          "is_missing_or_vague": false,
+          "raw_value": "512GB SSD storage",
+          "simplified_explanation": "Provides sufficient space for productivity apps, operating system files, and media projects with rapid boot and load times."
+        },
+        {
+          "everyday_analogy": "A high-wattage lamp ensuring your workspace remains sharp and easy to read even beside sunny windows.",
+          "feature": "Display",
+          "is_missing_or_vague": false,
+          "raw_value": "13.6-inch Liquid Retina display with True Tone, 2560x1664 resolution, 500 nits brightness, Wide color (P3)",
+          "simplified_explanation": "Offers crisp text, wide color reproduction for media tasks, and enough brightness for comfortable outdoor or cafe use."
+        },
+        {
+          "everyday_analogy": "A high-capacity fuel tank paired with a hybrid engine that runs for an entire workday on one fill-up.",
+          "feature": "Battery & Power",
+          "is_missing_or_vague": false,
+          "raw_value": "52.6-watt-hour lithium-polymer battery, up to 18 hours battery life",
+          "simplified_explanation": "Allows full-day mobile use without bringing a charger or hunting for wall outlets."
+        }
+      ],
+      "future_proofing_years": "4-5+ years (16GB unified memory and M3 architectural efficiency provide ample performance margin for future macOS updates and productivity software)",
+      "missing_specifications": [],
+      "persona_evaluations": [
+        {
+          "key_advantages": [
+            "16GB unified memory accommodates multiple IDEs, local servers, and containerized workflows.",
+            "Strong single-core CPU speeds up code compilation and dependency resolution.",
+            "Exceptional battery endurance enables untethered development on the move."
+          ],
+          "key_bottlenecks": [
+            "Passive thermal design throttles CPU during prolonged, heavy multi-core compilation tasks.",
+            "13.6-inch screen size limits side-by-side file and terminal inspection without external monitors."
+          ],
+          "persona": "Software Developer",
+          "reasoning": "The M3 with 16GB of memory offers dependable performance for web, mobile, and backend development. The only caveats are lack of active cooling during extended compile bursts and limited native external monitor setups.",
+          "suitability_score": 8
+        },
+        {
+          "key_advantages": [
+            "10-core GPU adequately supports casual titles, emulators, and optimized Apple Silicon games.",
+            "Vibrant P3 color gamut and crisp Liquid Retina resolution."
+          ],
+          "key_bottlenecks": [
+            "Standard 60Hz refresh rate lacks competitive fluid motion and low latency.",
+            "Severe library constraints on macOS due to incompatible anti-cheat software and Windows-focused releases.",
+            "Absence of an internal fan leads to thermal throttling during sustained 3D gaming."
+          ],
+          "persona": "Competitive Gamer",
+          "reasoning": "Competitive esports titles require high-refresh screens (144Hz+), broad Windows game compatibility, and active cooling to prevent frame drops, none of which this fanless Mac provides.",
+          "suitability_score": 3
+        },
+        {
+          "key_advantages": [
+            "Lightweight 1.24 kg frame easily slips into backpacks for commuting across campus.",
+            "Up to 18-hour battery life eliminates the need to carry power adapters during the day.",
+            "16GB memory and 512GB storage guarantee responsive performance for years without storage anxiety.",
+            "Silent fanless operation prevents distracting noise in quiet lecture halls and libraries."
+          ],
+          "key_bottlenecks": [
+            "Carries a higher price point than entry-level educational laptops."
+          ],
+          "persona": "Everyday / Student",
+          "reasoning": "This configuration is near-ideal for students and general consumers, combining portability, quiet operation, superb battery life, and sufficient memory to last through multi-year degree programs without slowing down.",
+          "suitability_score": 10
+        }
+      ],
+      "product_name": "Apple MacBook Air 13 M3"
+    }
+  },
+  {
+    "test_id": "TC-03",
+    "product_name": "Marketing Hype / Fluff Gaming Laptop",
+    "prompt_version": "v2.0_schema_constrained",
+    "model": "gemini-3.8-flash",
+    "timestamp": "2026-10-17 18:21:57",
+    "latency_ms": 21151,
+    "prompt_tokens": 1468,
+    "output_tokens": 1403,
+    "total_tokens": 3940,
+    "validation_status": "\u2705 100% Pydantic Schema Valid",
+    "raw_json_output": {
+      "avoid_if": [
+        "You want transparent, verifiable hardware specifications before committing your money",
+        "You expect high-end or high-framerate competitive esports gaming at maximum visual settings",
+        "You need verified all-day battery life and lightweight portability for school or travel"
+      ],
+      "buy_if": [
+        "The laptop is heavily discounted to entry-level budget pricing under 500 dollars",
+        "You only require casual 1080p entry-level gaming and basic daily computer use",
+        "You are willing to accept unknown CPU generations and unknown storage sizes"
+      ],
+      "buyer_risk_level": "HIGH RISK",
+      "buyer_warnings": [
+        "The exact processor model and generation are completely hidden behind buzzwords like 'military-grade' and 'high-power'.",
+        "Storage capacity is entirely unstated, meaning you could receive a tiny, unusable drive such as 128GB or 256GB.",
+        "The display refresh rate (Hz), resolution, panel type, and brightness (nits) are completely omitted despite claiming 'cinema-grade' visuals.",
+        "The NVIDIA RTX 3050 wattage (TGP) is undisclosed, which can alter gaming frame rates by up to 30 to 40 percent.",
+        "Battery capacity and charger wattage are absent, typical of gaming laptops with short unplugged endurance."
+      ],
+      "executive_summary": "This laptop hides critical hardware details behind aggressive marketing jargon, pairing an entry-level NVIDIA RTX 3050 with an undisclosed CPU and unspecified storage capacity. While 16GB of RAM is an acceptable baseline, the absence of processor details, display specs, and storage size makes it a high-risk purchase until exact component models are revealed. It is positioned as an extreme gaming machine, but the known hardware represents an entry-tier budget configuration.",
+      "extracted_specs": [
+        {
+          "everyday_analogy": "The engine of the car, but the seller refuses to tell you how many horsepower or cylinders it actually has.",
+          "feature": "Processor (CPU)",
+          "is_missing_or_vague": true,
+          "raw_value": "next-gen military-grade high-power multi-core processing architecture",
+          "simplified_explanation": "The specific manufacturer, model, generation, and core count are completely omitted, hiding whether it is modern or obsolete."
+        },
+        {
+          "everyday_analogy": "A dedicated visual artist, suited for basic sketching and lighter projects rather than massive studio productions.",
+          "feature": "Graphics Card (GPU)",
+          "is_missing_or_vague": false,
+          "raw_value": "NVIDIA GeForce RTX 3050",
+          "simplified_explanation": "An entry-level dedicated graphics card capable of playable frame rates in modern titles at 1080p on modest settings, but far from high-end dominance."
+        },
+        {
+          "everyday_analogy": "A standard office desk with enough space to keep multiple documents and applications open without clutter.",
+          "feature": "Memory (RAM)",
+          "is_missing_or_vague": false,
+          "raw_value": "16GB gaming memory",
+          "simplified_explanation": "A solid standard amount of memory for contemporary gaming and multitasking, though speed and generation (DDR4 vs DDR5) are omitted."
+        },
+        {
+          "everyday_analogy": "A filing cabinet where the seller refuses to disclose how many drawers or shelves it contains.",
+          "feature": "Storage (SSD)",
+          "is_missing_or_vague": true,
+          "raw_value": "blazing ultra-speed solid state drive",
+          "simplified_explanation": "An SSD guarantees faster boot times than a mechanical hard drive, but the seller conceals the capacity, leaving open the risk of an inadequate drive."
+        },
+        {
+          "everyday_analogy": "A window into your computer where the manufacturer will not tell you the window size, glass clarity, or glare resistance.",
+          "feature": "Display",
+          "is_missing_or_vague": true,
+          "raw_value": "Ultra-responsive immersive gaming display with cinema-grade visuals",
+          "simplified_explanation": "No resolution, refresh rate, or brightness metrics are provided, masking potentially dim or slow 60Hz screen hardware."
+        }
+      ],
+      "future_proofing_years": "1-2 years (The entry-level RTX 3050 GPU is already constrained by limited VRAM for modern titles, and the unknown CPU generation and storage size present immediate upgrade bottlenecks).",
+      "missing_specifications": [
+        "Exact Processor (CPU) brand, model, and generation",
+        "Solid State Drive (SSD) storage capacity (e.g. 256GB, 512GB, 1TB)",
+        "Display resolution (e.g. 1080p, 1440p), refresh rate (Hz), and brightness (nits)",
+        "Graphics Card (GPU) Total Graphics Power (TGP / wattage)",
+        "Battery capacity (Watt-hours) and expected run time"
+      ],
+      "persona_evaluations": [
+        {
+          "key_advantages": [
+            "16GB of system memory is adequate for local code editors, web development stacks, and moderate multi-tasking."
+          ],
+          "key_bottlenecks": [
+            "Undisclosed CPU model makes compile speeds and container virtualization performance unpredictable.",
+            "Unknown SSD size risks immediate storage exhaustion from developer tools, SDKs, and dependencies."
+          ],
+          "persona": "Software Developer",
+          "reasoning": "While 16GB RAM meets entry-level coding needs, development environments depend heavily on known CPU core counts and substantial disk storage, both of which are hidden by the seller.",
+          "suitability_score": 4
+        },
+        {
+          "key_advantages": [
+            "Includes a dedicated NVIDIA RTX 3050 GPU capable of running popular esports titles like CS2, Valorant, or Rocket League at 1080p."
+          ],
+          "key_bottlenecks": [
+            "RTX 3050 is strictly entry-tier, not an 'esports champion' chip, and struggles with modern AAA gaming.",
+            "Display refresh rate is unstated, meaning it could be a slow 60Hz panel inadequate for competitive gaming.",
+            "GPU wattage is omitted, risking lower-than-expected graphical performance."
+          ],
+          "persona": "Competitive Gamer",
+          "reasoning": "Competitive gamers prioritize high display refresh rates (144Hz+) and strong GPU throughput. This listing conceals display metrics and uses an entry-level GPU that will not achieve top-tier competitive performance.",
+          "suitability_score": 3
+        },
+        {
+          "key_advantages": [
+            "16GB RAM allows responsive web browsing, document writing, and media playback."
+          ],
+          "key_bottlenecks": [
+            "Dedicated gaming hardware typically causes poor battery life and excess fan noise.",
+            "Bulkier chassis design compared to lightweight ultrabooks or productivity laptops.",
+            "Unspecified display brightness could make working in bright classrooms or outdoors difficult."
+          ],
+          "persona": "Everyday / Student",
+          "reasoning": "Students and daily users need reliable battery endurance, clear portable displays, and lightweight mobility. Gaming laptops with unspecified batteries and entry-level graphics introduce unnecessary heat and weight for everyday tasks.",
+          "suitability_score": 5
+        }
+      ],
+      "product_name": "Extreme Turbo Gaming Beast Laptop"
+    }
+  },
+  {
+    "test_id": "TC-04",
+    "product_name": "Lenovo Legion 5 Pro (Heavy Duty Gaming / Creator)",
+    "prompt_version": "v2.0_schema_constrained",
+    "model": "gemini-3.7-flash",
+    "timestamp": "2026-10-17 18:33:23",
+    "latency_ms": 21885,
+    "prompt_tokens": 3103,
+    "output_tokens": 2012,
+    "total_tokens": 5882,
+    "validation_status": "\u2705 100% Pydantic Schema Valid",
+    "raw_json_output": {
+      "product_name": "Lenovo Legion 5 Pro",
+      "executive_summary": "The Lenovo Legion Pro 5 is a high-performance gaming and workstation laptop powered by AMD's enthusiast-class Ryzen 7 7745HX processor and an uncapped 140W NVIDIA RTX 4070 GPU. It features a bright, color-accurate 240Hz display and generous 32GB of upgradeable DDR5 memory, making it an exceptional powerhouse for demanding workflows and high-framerate gaming.",
+      "extracted_specs": [
+        {
+          "feature": "Processor (CPU)",
+          "raw_value": "AMD Ryzen 7 7745HX (8 cores, 16 threads, up to 5.1 GHz)",
+          "simplified_explanation": "A high-wattage desktop-grade mobile processor designed to power through heavy workloads, code compilation, and modern games without breaking a sweat.",
+          "everyday_analogy": "A high-octane V8 engine built to maintain intense speeds even while towing heavy equipment.",
+          "is_missing_or_vague": false
+        },
+        {
+          "feature": "Graphics Card (GPU)",
+          "raw_value": "NVIDIA GeForce RTX 4070 8GB GDDR6 (140W TGP)",
+          "simplified_explanation": "A high-tier graphics chip running at its full allowable power limit (140W), delivering excellent 1440p gaming performance and accelerated 3D rendering.",
+          "everyday_analogy": "A dedicated, world-class digital visual artist working full-time without power restrictions.",
+          "is_missing_or_vague": false
+        },
+        {
+          "feature": "System Memory (RAM)",
+          "raw_value": "32GB DDR5-5200MHz RAM (2x16GB, upgradeable to 64GB)",
+          "simplified_explanation": "Substantial multitasking headroom that enables running multiple virtual machines, IDEs, and heavy applications simultaneously without slowdowns, with dual slots ready for future upgrades.",
+          "everyday_analogy": "A massive office desk providing abundant space to spread out dozens of large blueprints at once.",
+          "is_missing_or_vague": false
+        },
+        {
+          "feature": "Storage",
+          "raw_value": "1TB SSD M.2 2280 PCIe Gen4",
+          "simplified_explanation": "Fast solid-state storage that ensures nearly instantaneous system boots, rapid file transfers, and fast game load times.",
+          "everyday_analogy": "A high-capacity, motorized filing cabinet that can pull any document into your hands in a split second.",
+          "is_missing_or_vague": false
+        },
+        {
+          "feature": "Display",
+          "raw_value": "16-inch WQXGA (2560x1600) IPS, 240Hz, 500 nits, 100% sRGB, DisplayHDR 400",
+          "simplified_explanation": "A sharp 16:10 aspect ratio screen that gets bright enough for sunny rooms, reproduces accurate colors, and refreshes 240 times per second for silky-smooth motion.",
+          "everyday_analogy": "A large, ultra-bright architectural drafting window offering clear clarity even under harsh overhead fluorescent lights.",
+          "is_missing_or_vague": false
+        },
+        {
+          "feature": "Battery and Power",
+          "raw_value": "80Wh battery with 300W slim tip adapter",
+          "simplified_explanation": "A substantial 80 watt-hour internal battery paired with a bulky 300W power brick necessary to fuel the power-hungry internals under full load.",
+          "everyday_analogy": "A heavy-duty commercial fuel tank that requires a high-throughput industrial pump to stay fueled.",
+          "is_missing_or_vague": false
+        },
+        {
+          "feature": "Weight & Portability",
+          "raw_value": "2.55 kg",
+          "simplified_explanation": "At roughly 5.6 lbs plus the weight of the 300W charging adapter, this machine is on the heavier side and best suited as a desk-bound desktop replacement.",
+          "everyday_analogy": "Carrying a dense stack of hardbound college textbooks in your backpack every day.",
+          "is_missing_or_vague": false
+        }
+      ],
+      "missing_specifications": [],
+      "buyer_risk_level": "LOW RISK",
+      "buyer_warnings": [
+        "High total carry weight: At 2.55 kg (5.62 lbs) plus the hefty 300W power brick, carrying this laptop daily will strain backpacks.",
+        "Modest battery life: The high-power AMD 'Dragon Range' HX processor and 140W GPU will consume power quickly on battery, likely providing only 3-5 hours of light office work.",
+        "8GB VRAM limit: While the RTX 4070 runs at full wattage, its 8GB video buffer may require lowering textures on unoptimized AAA titles at native 1600p resolution in coming years."
+      ],
+      "future_proofing_years": "4-5+ years",
+      "persona_evaluations": [
+        {
+          "persona": "Software Developer",
+          "suitability_score": 9,
+          "key_advantages": [
+            "32GB of dual-channel DDR5 RAM handles Docker containers, virtual machines, and IDEs with ease, plus upgradeability to 64GB.",
+            "8-core/16-thread Ryzen 7 7745HX offers outstanding multi-core compilation performance.",
+            "16:10 2560x1600 display provides vertical real estate for viewing more lines of code."
+          ],
+          "key_bottlenecks": [
+            "Short off-charger battery life limits coding sessions in coffee shops or while commuting.",
+            "Substantial bulk and weight make it inconvenient for frequent travel."
+          ],
+          "reasoning": "This laptop checks every box for local development and compilation workloads. The user-upgradeable memory up to 64GB and powerful CPU provide exceptional performance, docked or plugged in."
+        },
+        {
+          "persona": "Competitive Gamer",
+          "suitability_score": 10,
+          "key_advantages": [
+            "240Hz refresh rate panel provides hyper-responsive input and visual clarity in fast-paced esports titles.",
+            "Full 140W TGP RTX 4070 maximizes GPU clock speeds without synthetic power throttling.",
+            "Excellent 500-nit panel brightness eliminates reflections and wash-out during intense matches."
+          ],
+          "key_bottlenecks": [
+            "Demanding AAA games at the native 2560x1600 resolution will push the 8GB VRAM envelope over time."
+          ],
+          "reasoning": "With a 240Hz display, top-tier HX gaming processor, and full 140W power delivery to the RTX 4070, this laptop delivers peak mobile esports and AAA performance without compromises."
+        },
+        {
+          "persona": "Everyday / Student",
+          "suitability_score": 5,
+          "key_advantages": [
+            "Great keyboard, bright 500-nit screen, and durable build quality.",
+            "Blazing fast speed for web browsing, media streaming, and document creation."
+          ],
+          "key_bottlenecks": [
+            "Challenging daily portability due to the combined 2.55 kg chassis weight and heavy 300W power brick.",
+            "Poor battery endurance compared to thin-and-light productivity laptops.",
+            "Overkill performance and unnecessary expense for standard school or office tasks."
+          ],
+          "reasoning": "While capable of basic tasks, this laptop is too heavy, power-hungry, and bulky for students walking across campus or users wanting an agile couch-and-cafe device."
+        }
+      ],
+      "buy_if": [
+        "You want top-tier gaming and heavy multi-threaded productivity without GPU wattage throttling.",
+        "You demand a bright (500 nits), fast (240Hz), color-accurate 16:10 display for work and play.",
+        "You plan to keep the machine for several years and value expandable dual RAM slots (up to 64GB)."
+      ],
+      "avoid_if": [
+        "You need an all-day battery life machine for attending classes or working on long flights.",
+        "You prioritize ultra-portable travel weight and slim form factors over raw performance.",
+        "Your workflow only consists of standard document editing, media playback, and web surfing."
+      ]
+    }
+  },
+  {
+    "test_id": "TC-05",
+    "product_name": "Apple iPad Air 11-inch M2 (Tablet / Student Productivity)",
+    "prompt_version": "v2.0_schema_constrained",
+    "model": "gemini-3.7-flash",
+    "timestamp": "2026-10-17 18:33:58",
+    "latency_ms": 22282,
+    "prompt_tokens": 3130,
+    "output_tokens": 2078,
+    "total_tokens": 5939,
+    "validation_status": "\u2705 100% Pydantic Schema Valid",
+    "raw_json_output": {
+      "product_name": "Apple iPad Air 11-inch M2",
+      "executive_summary": "The 11-inch Apple iPad Air M2 pairs high-end desktop-class silicon with an ultra-portable tablet design. It delivers immense computational speed, robust battery endurance, and broad accessory support for media consumption and creative tasks. However, it remains constrained by iPadOS software limitations and base-tier non-upgradeable memory and storage.",
+      "extracted_specs": [
+        {
+          "feature": "Processor (CPU)",
+          "raw_value": "Apple M2 chip with 8-core CPU, 16-core Neural Engine",
+          "simplified_explanation": "A high-performance central processing unit that handles demanding tasks, multitasking, and machine learning computations smoothly.",
+          "everyday_analogy": "A high-end multi-lane highway engine that cruises effortlessly through heavy traffic.",
+          "is_missing_or_vague": false
+        },
+        {
+          "feature": "Graphics Processing Unit (GPU)",
+          "raw_value": "10-core GPU",
+          "simplified_explanation": "Integrated graphics hardware capable of rendering high-fidelity 3D graphics, video rendering, and gaming.",
+          "everyday_analogy": "A dedicated digital artist rapidly sketching and coloring every frame without delay.",
+          "is_missing_or_vague": false
+        },
+        {
+          "feature": "Memory (RAM)",
+          "raw_value": "8GB RAM",
+          "simplified_explanation": "Unified system memory allowing multiple apps and background processes to stay open simultaneously without reloading.",
+          "everyday_analogy": "A clean desk surface with enough space to keep eight open textbooks ready at once.",
+          "is_missing_or_vague": false
+        },
+        {
+          "feature": "Internal Storage",
+          "raw_value": "128GB storage",
+          "simplified_explanation": "Permanent onboard high-speed storage for apps, system files, documents, and media.",
+          "everyday_analogy": "A medium-sized filing cabinet that comfortably stores your essential paperwork and photos.",
+          "is_missing_or_vague": false
+        },
+        {
+          "feature": "Display",
+          "raw_value": "11-inch Liquid Retina display with LED backlighting, 2360x1640 resolution at 264 ppi, 500 nits brightness, P3 wide color, True Tone",
+          "simplified_explanation": "A sharp, color-accurate screen that remains easily readable in typical indoor and moderate outdoor ambient lighting.",
+          "everyday_analogy": "A high-definition printed glossy magazine page illuminated by a bright, clean reading lamp.",
+          "is_missing_or_vague": false
+        },
+        {
+          "feature": "Display Refresh Rate",
+          "raw_value": "NOT SPECIFIED",
+          "simplified_explanation": "The frequency at which the screen updates its image every second; iPad Air models traditionally run at a standard 60Hz rather than 120Hz ProMotion.",
+          "everyday_analogy": "A standard flipbook that flips at normal speed rather than an ultra-smooth double-speed animation.",
+          "is_missing_or_vague": true
+        },
+        {
+          "feature": "Connectivity & Ports",
+          "raw_value": "Wi-Fi 6E, Bluetooth 5.3, USB-C connector (USB 3 up to 10Gb/s)",
+          "simplified_explanation": "Modern wireless standards for fast internet and wireless accessories, along with a fast wired data and charging port.",
+          "everyday_analogy": "A state-of-the-art wireless hub paired with a fast pipeline for moving bulky files.",
+          "is_missing_or_vague": false
+        },
+        {
+          "feature": "Battery",
+          "raw_value": "28.93-watt-hour rechargeable lithium-polymer battery",
+          "simplified_explanation": "Battery capacity engineered to provide roughly a full day of standard web browsing or video streaming.",
+          "everyday_analogy": "A compact fuel tank calibrated to get you through a typical work day on one refill.",
+          "is_missing_or_vague": false
+        },
+        {
+          "feature": "Cameras",
+          "raw_value": "12MP Wide back camera with 4K video, 12MP Landscape Ultra Wide front camera with Center Stage",
+          "simplified_explanation": "Sensors optimized for crisp video conferencing that automatically keeps you centered in frame, plus 4K document/video capture.",
+          "everyday_analogy": "A smart cameraman that follows your head movements during conference calls.",
+          "is_missing_or_vague": false
+        }
+      ],
+      "missing_specifications": [
+        "Display refresh rate is omitted in the marketing description (operates at standard 60Hz, lacking Apple's 120Hz ProMotion technology)."
+      ],
+      "buyer_risk_level": "MODERATE RISK",
+      "buyer_warnings": [
+        "Storage and RAM are completely non-upgradeable after purchase; 128GB can fill up quickly if you store offline 4K media or large creative project files.",
+        "Lacks a 120Hz ProMotion display, limiting high-refresh-rate fluid motion compared to iPad Pro models.",
+        "iPadOS restricts desktop-class workflows, local development tooling, and native multi-window desktop environments."
+      ],
+      "future_proofing_years": "4-5+ Years (The M2 architecture provides substantial processing overhead and Apple typically supports iPads with software updates for 5+ years).",
+      "persona_evaluations": [
+        {
+          "persona": "Software Developer",
+          "suitability_score": 3,
+          "key_advantages": [
+            "M2 chip provides stellar raw compute performance and swift app execution.",
+            "USB 3 (10Gb/s) port allows high-speed connection to external drives and monitors."
+          ],
+          "key_bottlenecks": [
+            "iPadOS cannot run local Docker containers, native terminal environments, or complete desktop IDEs.",
+            "8GB RAM limits heavy virtualization or massive local multitasking.",
+            "11-inch screen provides limited multi-window workspace for code and documentation simultaneously."
+          ],
+          "reasoning": "While the M2 chip has the raw horsepower of a desktop computer, iPadOS strictly prevents running native compilers, local development environments, and container workflows without relying on a remote cloud server."
+        },
+        {
+          "persona": "Competitive Gamer",
+          "suitability_score": 4,
+          "key_advantages": [
+            "10-core GPU handles the most demanding App Store titles and emulation smoothly.",
+            "Wi-Fi 6E delivers low-latency network connections for online mobile gaming."
+          ],
+          "key_bottlenecks": [
+            "Display is limited to 60Hz, lacking the 120Hz fluidity competitive gamers look for.",
+            "Mobile gaming ecosystem lacks access to standard competitive PC game libraries (e.g., Steam, Riot client).",
+            "Passive tablet cooling can lead to thermal throttling during sustained high-wattage gaming sessions."
+          ],
+          "reasoning": "The M2 processor is great for high-end mobile gaming, but the 60Hz refresh rate cap and inability to run native competitive PC titles make it an unsuitable primary competitive gaming machine."
+        },
+        {
+          "persona": "Everyday / Student",
+          "suitability_score": 9,
+          "key_advantages": [
+            "Lightweight 462g chassis offers exceptional portability for backpacks and daily travel.",
+            "Support for Apple Pencil Pro and Magic Keyboard turns it into an intuitive digital notebook.",
+            "Landscape front camera with Center Stage provides an optimal setup for online classes and video calls.",
+            "M2 processor offers effortless web browsing, video streaming, and document editing."
+          ],
+          "key_bottlenecks": [
+            "128GB base storage may require cloud storage subscriptions over time for extensive media libraries.",
+            "Essential accessories like the Apple Pencil and keyboard must be purchased separately."
+          ],
+          "reasoning": "This tablet excels for general everyday computing, academic research, note-taking, and media streaming, offering years of top-tier performance in a light, durable form factor."
+        }
+      ],
+      "buy_if": [
+        "You want top-tier processing power and Apple Pencil Pro support for note-taking, drawing, and media.",
+        "You need a lightweight, long-lasting tablet for student coursework, casual computing, and video calls.",
+        "You are already invested in the Apple ecosystem and desire high portability without paying iPad Pro prices."
+      ],
+      "avoid_if": [
+        "You require a full desktop operating system (macOS or Windows) to run local programming IDEs, virtualization, or specialized productivity apps.",
+        "You demand a 120Hz high-refresh-rate display for ultra-smooth scrolling and gaming.",
+        "You need substantial local offline storage and prefer not to pay premium upgrade prices or rely on external cloud drives."
+      ]
+    }
+  }
+]

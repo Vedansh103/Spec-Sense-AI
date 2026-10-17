@@ -25,7 +25,7 @@ if not API_KEY:
 
 # Configure Gemini with REST transport
 genai.configure(api_key=API_KEY, transport="rest")
-model = genai.GenerativeModel("gemini-3.8-flash")
+model = genai.GenerativeModel("gemini-3.7-flash")
 
 # Load baseline prompt template
 prompt_path = Path("prompts/v1_baseline.txt")
@@ -113,7 +113,7 @@ Analyze this product and provide your recommendations."""
         "test_id": test_item["id"],
         "product_name": test_item["name"],
         "prompt_version": "v1.0_baseline",
-        "model": "gemini-3.8-flash",
+        "model": "gemini-3.7-flash",
         "timestamp": time.strftime("%Y-%m-%d %H:%M:%S"),
         "latency_ms": latency_ms,
         "prompt_tokens": prompt_tokens,

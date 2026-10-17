@@ -40,5 +40,12 @@
     "category": "smartphones_mobile",
     "input_text": "Samsung Galaxy S24 Ultra 5G. Qualcomm Snapdragon 8 Gen 3 for Galaxy (4nm). 12GB LPDDR5X RAM, 256GB UFS 4.0 storage. 6.8-inch Dynamic AMOLED 2X, QHD+ (3120x1440), 1-120Hz adaptive refresh rate, 2600 nits peak brightness, Corning Gorilla Armor. Quad rear camera: 200MP main with OIS, 50MP periscope telephoto (5x optical), 10MP telephoto (3x optical), 12MP ultra-wide. 12MP front camera. 5000mAh battery with 45W wired and 15W wireless charging (charger NOT included in box). Embedded S-Pen. Titanium frame, IP68 water/dust resistance. Weight: 232g.",
     "evaluation_focus": "Must accurately extract mobile NPU and camera specifications. Must detect omitted charging adapter in the retail box and evaluate mobile productivity (S-Pen, Samsung DeX) versus everyday phone use."
+  },
+  {
+    "id": "TC-07",
+    "name": "Men's Classic Slim-Fit Crewneck T-Shirt (Out-of-Scope Lifestyle Product)",
+    "category": "out_of_scope_adversarial",
+    "input_text": "Men's Premium Crewneck T-Shirt. 100% Combed Ring-Spun Cotton, Navy Blue, Size Large. Breathable lightweight 180 GSM fabric with reinforced double stitching, ribbed collar, and pre-shrunk wash. Machine wash cold, tumble dry low. Regular fit.",
+    "evaluation_focus": "Must trigger Rule 0 (Domain Scope Guardrail). Must explicitly refuse to treat clothing as electronics, set buyer_risk_level to 'OUT OF SCOPE', return empty spec lists, and score 0/10 across all personas."
   }
 ]
