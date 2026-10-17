@@ -29,18 +29,45 @@ st.set_page_config(
 load_dotenv()
 API_KEY = os.getenv("GEMINI_API_KEY")
 
+FALLBACK_MODELS = [
+    "gemini-3.5-flash",
+    "gemini-3.6-flash",
+    "gemini-3.5-flash-lite",
+    "gemini-3.7-flash"
+]
+
 if API_KEY:
     genai.configure(api_key=API_KEY, transport="rest")
-    model = genai.GenerativeModel(
-        "gemini-3.7-flash",
-        generation_config={
-            "response_mime_type": "application/json",
-            "temperature": 0.2,
-            "max_output_tokens": 4096
-        }
-    )
+    is_api_configured = True
 else:
-    model = None
+    is_api_configured = False
+
+# Resilient Generation Helper with Auto-Failover
+def generate_with_fallback(full_prompt: str):
+    """Executes generate_content across models with automatic failover if a model's daily quota (429) is exhausted."""
+    last_exception = None
+    for model_name in FALLBACK_MODELS:
+        try:
+            m = genai.GenerativeModel(
+                model_name,
+                generation_config={
+                    "response_mime_type": "application/json",
+                    "temperature": 0.2,
+                    "max_output_tokens": 4096
+                }
+            )
+            start_time = time.perf_counter()
+            response = m.generate_content(full_prompt)
+            latency_ms = round((time.perf_counter() - start_time) * 1000)
+            return response, latency_ms, model_name
+        except Exception as e:
+            last_exception = e
+            err_msg = str(e).lower()
+            if "429" in err_msg or "quota" in err_msg or "rate" in err_msg or "404" in err_msg:
+                continue
+            else:
+                raise e
+    raise last_exception
 
 # Inject Three.js 3D Background, Fixed Top-Left Navbar & Cyberpunk Styling
 render_3d_electronics_background()
@@ -70,9 +97,7 @@ def analyze_single_product(product_name: str, raw_specs: str):
         f"{schema_str}\n"
     ).replace("{product_name}", clean_name).replace("{raw_specs_text}", raw_specs)
 
-    start_time = time.perf_counter()
-    response = model.generate_content(full_prompt)
-    latency_ms = round((time.perf_counter() - start_time) * 1000)
+    response, latency_ms, used_model = generate_with_fallback(full_prompt)
 
     prompt_tokens = getattr(response.usage_metadata, "prompt_token_count", "N/A")
     output_tokens = getattr(response.usage_metadata, "candidates_token_count", "N/A")
@@ -94,9 +119,7 @@ def compare_products(prod_a_name: str, prod_a_specs: str, prod_b_name: str, prod
      .replace("{product_b_name}", prod_b_name)\
      .replace("{product_b_specs}", prod_b_specs)
 
-    start_time = time.perf_counter()
-    response = model.generate_content(full_prompt)
-    latency_ms = round((time.perf_counter() - start_time) * 1000)
+    response, latency_ms, used_model = generate_with_fallback(full_prompt)
 
     prompt_tokens = getattr(response.usage_metadata, "prompt_token_count", "N/A")
     output_tokens = getattr(response.usage_metadata, "candidates_token_count", "N/A")
@@ -188,8 +211,8 @@ with tab_single:
     if analyze_btn:
         if not prod_name_input or not raw_specs_input:
             st.warning("Please provide both a product name and specification text.")
-        elif not model:
-            st.error("Gemini API key is required.")
+        elif not is_api_configured:
+            st.error("Gemini API key is required in .env.")
         else:
             with st.spinner("Decoding technical jargon & analyzing hardware risk..."):
                 try:
@@ -322,7 +345,11 @@ with tab_single:
 
 
                 except Exception as e:
-                    st.error(f"Execution Error: {e}")
+                    err_msg = str(e)
+                    if "429" in err_msg or "quota" in err_msg:
+                        st.error("⏳ **Gemini Free-Tier Rate Limit Reached.** All daily free request quotas have been exhausted. Please retry in a little while or configure a fresh API key in `.env`.")
+                    else:
+                        st.error(f"Execution Error: {e}")
 
 
 # ==========================================
@@ -403,7 +430,11 @@ with tab_compare:
                         """, unsafe_allow_html=True)
 
             except Exception as e:
-                st.error(f"Comparison Error: {e}")
+                err_msg = str(e)
+                if "429" in err_msg or "quota" in err_msg:
+                    st.error("⏳ **Gemini Free-Tier Rate Limit Reached.** All daily free request quotas have been exhausted. Please retry in a little while or configure a fresh API key in `.env`.")
+                else:
+                    st.error(f"Comparison Error: {e}")
 
 
 
