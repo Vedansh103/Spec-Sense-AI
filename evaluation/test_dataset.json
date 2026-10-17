@@ -1,0 +1,51 @@
+[
+  {
+    "id": "TC-01",
+    "name": "Apple MacBook Air 13 M3 (Well-Documented Standard Case)",
+    "category": "complete_specs",
+    "input_text": "Apple MacBook Air 13-inch (2024). Apple M3 chip with 8-core CPU and 10-core GPU, 16-core Neural Engine. 16GB unified memory, 512GB SSD storage. 13.6-inch Liquid Retina display with True Tone, 2560x1664 resolution, 500 nits brightness, Wide color (P3). Two Thunderbolt / USB 4 ports, MagSafe 3 charging port, 3.5 mm headphone jack. 52.6-watt-hour lithium-polymer battery, up to 18 hours battery life. Backlit Magic Keyboard with Touch ID. Weight: 1.24 kg.",
+    "evaluation_focus": "Should extract accurate specs, give high marks for everyday/coding, warn about limited AAA gaming."
+  },
+  {
+    "id": "TC-02",
+    "name": "Budget Core i5 Laptop (Omitted & Ambiguous Specs Case)",
+    "category": "missing_specs",
+    "input_text": "Ultra-Slim 15.6 Laptop Computer. Intel Core i5-1235U processor (10 cores, up to 4.4 GHz). 8GB DDR4 RAM, 256GB PCIe NVMe SSD. 15.6-inch FHD (1920x1080) anti-glare display. Intel Iris Xe Graphics. Windows 11 Home. USB 3.2, USB 2.0, HDMI, Audio Combo Jack. Wi-Fi 6, Bluetooth 5.0.",
+    "evaluation_focus": "Must NOT hallucinate screen brightness (nits), color gamut, or battery capacity. Must flag 8GB non-expandable risk and missing display quality metrics."
+  },
+  {
+    "id": "TC-03",
+    "name": "Marketing Hype / Fluff Gaming Laptop",
+    "category": "marketing_buzzwords",
+    "input_text": "Extreme Turbo Gaming Beast. Featuring a next-gen military-grade high-power multi-core processing architecture and blistering graphics performance powered by NVIDIA GeForce RTX 3050. Ultra-responsive immersive gaming display with cinema-grade visuals. High-velocity cooling aerodynamics. 16GB gaming memory and blazing ultra-speed solid state drive. Designed for esports champions and ultimate dominance.",
+    "evaluation_focus": "Must strip away promotional fluff, identify actual low-tier RTX 3050 GPU, detect omitted TGP/wattage, omitted display refresh rate (Hz), and omitted CPU model name."
+  },
+  {
+    "id": "TC-04",
+    "name": "Lenovo Legion 5 Pro (Heavy Duty Gaming / Creator)",
+    "category": "gaming_heavyweight",
+    "input_text": "Lenovo Legion Pro 5 16. AMD Ryzen 7 7745HX (8 cores, 16 threads, up to 5.1 GHz). NVIDIA GeForce RTX 4070 8GB GDDR6 (140W TGP). 32GB DDR5-5200MHz RAM (2x16GB, upgradeable to 64GB). 1TB SSD M.2 2280 PCIe Gen4. 16-inch WQXGA (2560x1600) IPS, 240Hz, 500 nits, 100% sRGB, DisplayHDR 400. 80Wh battery with 300W slim tip adapter. Weight: 2.55 kg.",
+    "evaluation_focus": "Should score high on gaming/rendering, flag heavy weight (2.55kg + 300W brick) and low battery life as downsides for mobile students."
+  },
+  {
+    "id": "TC-05",
+    "name": "Apple iPad Air 11-inch M2 (Tablet / Student Productivity)",
+    "category": "tablets_mobile",
+    "input_text": "Apple 11-inch iPad Air (M2, 2024). Apple M2 chip with 8-core CPU, 10-core GPU, and 16-core Neural Engine. 8GB RAM, 128GB storage. 11-inch Liquid Retina display with LED backlighting, 2360x1640 resolution at 264 ppi, 500 nits brightness, P3 wide color, True Tone. Supports Apple Pencil Pro and Magic Keyboard. 12MP Wide back camera with 4K video, 12MP Landscape Ultra Wide front camera with Center Stage. Wi-Fi 6E, Bluetooth 5.3, USB-C connector (USB 3 up to 10Gb/s). 28.93-watt-hour rechargeable lithium-polymer battery. iPadOS 17. Weight: 462 grams.",
+    "evaluation_focus": "Should score high for digital note-taking, sketching, and media consumption. Must highlight that iPadOS limits traditional desktop programming IDEs compared to full macOS/Windows laptops."
+  },
+  {
+    "id": "TC-06",
+    "name": "Samsung Galaxy S24 Ultra (Flagship Smartphone)",
+    "category": "smartphones_mobile",
+    "input_text": "Samsung Galaxy S24 Ultra 5G. Qualcomm Snapdragon 8 Gen 3 for Galaxy (4nm). 12GB LPDDR5X RAM, 256GB UFS 4.0 storage. 6.8-inch Dynamic AMOLED 2X, QHD+ (3120x1440), 1-120Hz adaptive refresh rate, 2600 nits peak brightness, Corning Gorilla Armor. Quad rear camera: 200MP main with OIS, 50MP periscope telephoto (5x optical), 10MP telephoto (3x optical), 12MP ultra-wide. 12MP front camera. 5000mAh battery with 45W wired and 15W wireless charging (charger NOT included in box). Embedded S-Pen. Titanium frame, IP68 water/dust resistance. Weight: 232g.",
+    "evaluation_focus": "Must accurately extract mobile NPU and camera specifications. Must detect omitted charging adapter in the retail box and evaluate mobile productivity (S-Pen, Samsung DeX) versus everyday phone use."
+  },
+  {
+    "id": "TC-07",
+    "name": "Men's Classic Slim-Fit Crewneck T-Shirt (Out-of-Scope Lifestyle Product)",
+    "category": "out_of_scope_adversarial",
+    "input_text": "Men's Premium Crewneck T-Shirt. 100% Combed Ring-Spun Cotton, Navy Blue, Size Large. Breathable lightweight 180 GSM fabric with reinforced double stitching, ribbed collar, and pre-shrunk wash. Machine wash cold, tumble dry low. Regular fit.",
+    "evaluation_focus": "Must trigger Rule 0 (Domain Scope Guardrail). Must explicitly refuse to treat clothing as electronics, set buyer_risk_level to 'OUT OF SCOPE', return empty spec lists, and score 0/10 across all personas."
+  }
+]
