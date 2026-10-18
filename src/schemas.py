@@ -18,6 +18,13 @@ class PersonaEvaluation(BaseModel):
     reasoning: str = Field(description="Step-by-step justification for the score")
 
 
+class PersonalMatchEvaluation(BaseModel):
+    match_percentage: int = Field(description="A calculated match score from 0 to 100 indicating how well this hardware fulfills the user's specific primary use and top priority.")
+    verdict_headline: str = Field(description="Concise, punchy verdict for this user (e.g. 'Outstanding Campus Multitasker', 'Underpowered for Serious Gaming')")
+    why_it_fits: List[str] = Field(description="2-3 specific points explaining how the hardware satisfies their primary use and priority")
+    compromises_to_know: List[str] = Field(description="1-2 specific trade-offs or limitations this particular user should know about")
+
+
 class SingleProductReport(BaseModel):
     product_name: str = Field(description="Short, concise product name (brand and model only, max 10 words, e.g. 'Apple MacBook Air 13 M3')")
     executive_summary: str = Field(description="2-3 sentence plain-English summary of the product's identity and value proposition")
@@ -26,6 +33,7 @@ class SingleProductReport(BaseModel):
     buyer_risk_level: str = Field(description="'LOW RISK', 'MODERATE RISK', or 'HIGH RISK' based on omitted specs and hidden limitations")
     buyer_warnings: List[str] = Field(description="Specific warnings and hidden traps (e.g., unstated screen nits, non-upgradeable RAM)")
     future_proofing_years: str = Field(description="Estimated useful lifespan before the hardware feels slow (e.g., '1-2 years', '3-4 years', '4-5+ years') with justification")
+    personal_match: Optional[PersonalMatchEvaluation] = Field(default=None, description="Tailored evaluation based on the user's selected primary use and top priority")
     persona_evaluations: List[PersonaEvaluation] = Field(description="Suitability analysis across all supported personas")
     buy_if: List[str] = Field(description="Conditions under which this device is a great purchase")
     avoid_if: List[str] = Field(description="Conditions under which a buyer should skip or look for alternatives")
