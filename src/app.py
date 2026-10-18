@@ -34,6 +34,14 @@ st.set_page_config(
 # Load environment & Gemini API
 load_dotenv()
 API_KEY = os.getenv("GEMINI_API_KEY")
+if not API_KEY:
+    try:
+        API_KEY = st.secrets.get("GEMINI_API_KEY") or st.secrets.get("gemini_api_key")
+    except Exception:
+        pass
+
+if API_KEY:
+    os.environ["GEMINI_API_KEY"] = API_KEY
 
 FALLBACK_MODELS = [
     "gemini-3.5-flash",
@@ -83,11 +91,20 @@ st.markdown(get_custom_css(), unsafe_allow_html=True)
 st.markdown(get_fixed_navbar_html(), unsafe_allow_html=True)
 
 # Load prompt templates
-single_prompt_template = Path("prompts/v2_schema_constrained.txt").read_text(encoding="utf-8")
-comparison_prompt_template = Path("prompts/v2_comparison.txt").read_text(encoding="utf-8")
+def _read_file(rel: str) -> str:
+    p = project_root / rel
+    if not p.exists():
+        p = Path(rel)
+    return p.read_text(encoding="utf-8")
+
+single_prompt_template = _read_file("prompts/v2_schema_constrained.txt")
+comparison_prompt_template = _read_file("prompts/v2_comparison.txt")
 
 # Load benchmark test dataset
-dataset_path = Path("evaluation/test_dataset.json")
+dataset_path = project_root / "evaluation" / "test_dataset.json"
+if not dataset_path.exists():
+    dataset_path = Path("evaluation/test_dataset.json")
+
 test_cases = []
 if dataset_path.exists():
     with open(dataset_path, "r", encoding="utf-8") as f:
