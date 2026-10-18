@@ -58,6 +58,14 @@ You MUST respond strictly in valid JSON adhering to the SingleProductReport sche
      * "Everyday / Student" (Considers portability, battery, value, document/media performance).
    - Provide concrete, technical `key_advantages`, `key_bottlenecks`, and step-by-step `reasoning`.
 
+5b. PERSONAL MATCH EVALUATION (USER'S PERSONAL WIZARD):
+   - In `personal_match`, evaluate how well this product fulfills the user's specific <primary_use> and <top_priority>:
+     * `match_percentage`: Integer from 0 to 100 representing how well the device matches their specific needs.
+     * `verdict_headline`: Punchy, concise summary (e.g. "Outstanding Campus Daily Driver", "Underpowered for Heavy Video Production").
+     * `why_it_fits`: 2-3 specific hardware features that directly satisfy their primary use and top priority.
+     * `compromises_to_know`: 1-2 honest trade-offs this specific buyer must accept.
+     * If OUT OF SCOPE, set match_percentage = 0, verdict_headline = "Out of Scope Product", why_it_fits = [], compromises_to_know = ["Item is non-electronic"].
+
 6. BUYING VERDICT:
    - Provide clear, actionable bullet points in `buy_if` and `avoid_if`.
 
@@ -65,6 +73,11 @@ You MUST respond strictly in valid JSON adhering to the SingleProductReport sche
 <product_name>
 {product_name}
 </product_name>
+
+<user_profile>
+Primary Use: {primary_use}
+Top Priority: {top_priority}
+</user_profile>
 
 <raw_specifications>
 {raw_specs_text}
