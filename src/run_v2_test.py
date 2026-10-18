@@ -31,8 +31,8 @@ generation_config = {
     "max_output_tokens": 4096
 }
 
-# Using gemini-3.7-flash for stable JSON generation and high free-tier quota
-model = genai.GenerativeModel("gemini-3.7-flash", generation_config=generation_config)
+# Using gemini-3.5-flash for stable JSON generation and high free-tier quota
+model = genai.GenerativeModel("gemini-3.5-flash", generation_config=generation_config)
 
 # Load prompt template
 prompt_path = Path("prompts/v2_schema_constrained.txt")
@@ -79,7 +79,10 @@ for item in selected_cases:
         f"[EXACT JSON SCHEMA REQUIREMENT]\n"
         f"You MUST output valid JSON strictly matching this exact JSON schema:\n"
         f"{schema_str}\n"
-    ).replace("{product_name}", clean_name).replace("{raw_specs_text}", item["input_text"])
+    ).replace("{product_name}", clean_name)\
+     .replace("{primary_use}", "College & Studies")\
+     .replace("{top_priority}", "Best Budget Value for Money")\
+     .replace("{raw_specs_text}", item["input_text"])
 
     # Execute with latency tracking
     start_time = time.perf_counter()
