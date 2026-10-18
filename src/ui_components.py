@@ -1018,3 +1018,14 @@ def get_fixed_navbar_html() -> str:
         </div>
     </div>
     """
+
+
+def render_html(html_str: str):
+    """
+    Renders HTML safely in Streamlit without Markdown interpreting indented lines as code blocks.
+    Strips leading and trailing whitespace from every line so that CommonMark never triggers <pre><code>.
+    """
+    import streamlit as st
+    cleaned = "\n".join(line.strip() for line in html_str.strip().splitlines() if line.strip())
+    st.markdown(cleaned, unsafe_allow_html=True)
+

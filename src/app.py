@@ -21,7 +21,7 @@ from schemas import SingleProductReport, ProductComparisonReport
 
 import ui_components
 importlib.reload(ui_components)
-from ui_components import render_3d_electronics_background, get_custom_css, get_fixed_navbar_html
+from ui_components import render_3d_electronics_background, get_custom_css, get_fixed_navbar_html, render_html
 
 # Page Configuration
 st.set_page_config(
@@ -262,8 +262,9 @@ with tab_single:
 
                         fit_pills_html = "".join([f'<span class="match-pill-fit">✓ {item}</span>' for item in pm.why_it_fits])
                         tradeoff_pills_html = "".join([f'<span class="match-pill-tradeoff">⚠️ {item}</span>' for item in pm.compromises_to_know])
+                        pills_html = f'<div class="match-pills-row">{fit_pills_html}{tradeoff_pills_html}</div>' if (fit_pills_html or tradeoff_pills_html) else ""
 
-                        st.markdown(f"""
+                        render_html(f"""
                         <div class="match-banner">
                             <div class="match-left">
                                 <div class="match-dial-box" style="border-color: {pct_color}; box-shadow: 0 0 20px {dial_glow};">
@@ -278,14 +279,11 @@ with tab_single:
                                     </div>
                                     <div class="match-headline">{pm.verdict_headline}</div>
                                     <div class="match-subtext">Objective suitability calculated specifically for your daily workflow and top hardware priority.</div>
-                                    <div class="match-pills-row">
-                                        {fit_pills_html}
-                                        {tradeoff_pills_html}
-                                    </div>
+                                    {pills_html}
                                 </div>
                             </div>
                         </div>
-                        """, unsafe_allow_html=True)
+                        """)
 
                     # 2. Buyer Risk Index Banner
                     risk_class = "risk-low"
@@ -300,7 +298,7 @@ with tab_single:
                         risk_class = "risk-out-of-scope"
                         risk_icon = "⛔"
 
-                    st.markdown(f"""
+                    render_html(f"""
                     <div class="risk-banner {risk_class}">
                         <div class="risk-badge-group">
                             <span class="risk-icon">{risk_icon}</span>
@@ -314,38 +312,38 @@ with tab_single:
                             <div class="risk-lifespan-value">⏳ {report.future_proofing_years}</div>
                         </div>
                     </div>
-                    """, unsafe_allow_html=True)
+                    """)
 
                     # 2. Executive Summary Card
-                    st.markdown(f"""
+                    render_html(f"""
                     <div class="glass-card">
                         <h4 style="margin-top: 0; color: #00f2fe; font-family: 'Space Grotesk', sans-serif;">📋 Executive Verdict</h4>
                         <p style="font-size: 1.05rem; line-height: 1.6; color: #e2e8f0; margin: 0;">{report.executive_summary}</p>
                     </div>
-                    """, unsafe_allow_html=True)
+                    """)
 
                     # 3. Missing Specifications Alert (If Any)
                     if report.missing_specifications:
                         tags_html = "".join([f'<span class="missing-tag">⚠️ {m}</span>' for m in report.missing_specifications])
-                        st.markdown(f"""
+                        render_html(f"""
                         <div class="glass-card" style="border-left: 5px solid #ef4444;">
                             <h4 style="margin-top: 0; color: #f87171; font-family: 'Space Grotesk', sans-serif;">⚠️ Critical Unstated Specifications (Buyer Traps)</h4>
                             <p style="font-size: 0.9rem; color: #94a3b8; margin-bottom: 10px;">The seller omitted the following specs that directly affect daily usage or out-of-pocket costs:</p>
                             <div>{tags_html}</div>
                         </div>
-                        """, unsafe_allow_html=True)
+                        """)
 
                     # 4. Buyer Warnings (If Any)
                     if report.buyer_warnings:
                         warnings_html = "".join([f'<li style="margin-bottom: 6px; color: #f8fafc;"><strong>{w}</strong></li>' for w in report.buyer_warnings])
-                        st.markdown(f"""
+                        render_html(f"""
                         <div class="glass-card" style="border-left: 5px solid #f59e0b;">
                             <h4 style="margin-top: 0; color: #fbbf24; font-family: 'Space Grotesk', sans-serif; margin-bottom: 10px;">🔔 Important Fine-Print Traps & Observations</h4>
                             <ul style="line-height: 1.6; margin: 0; padding-left: 20px;">
                                 {warnings_html}
                             </ul>
                         </div>
-                        """, unsafe_allow_html=True)
+                        """)
 
                     # 5. Persona Suitability Analysis
                     if report.persona_evaluations:
@@ -353,8 +351,15 @@ with tab_single:
                         p_cols = st.columns(len(report.persona_evaluations))
                         for i, p in enumerate(report.persona_evaluations):
                             score_color = "#10b981" if p.suitability_score >= 7 else ("#f59e0b" if p.suitability_score >= 4 else "#ef4444")
+                            
+                            adv_pills = "".join([f'<div class="pill-advantage">✓ {a}</div>' for a in p.key_advantages])
+                            adv_section = f'<div style="font-size: 0.78rem; text-transform: uppercase; color: #34d399; font-weight: 700; margin-bottom: 4px;">KEY ADVANTAGES</div>{adv_pills}' if p.key_advantages else ""
+                            
+                            bot_pills = "".join([f'<div class="pill-bottleneck">✗ {b}</div>' for b in p.key_bottlenecks])
+                            bot_section = f'<div style="font-size: 0.78rem; text-transform: uppercase; color: #f87171; font-weight: 700; margin-top: 8px; margin-bottom: 4px;">KEY BOTTLENECK</div>{bot_pills}' if p.key_bottlenecks else ""
+                            
                             with p_cols[i]:
-                                st.markdown(f"""
+                                render_html(f"""
                                 <div class="persona-card">
                                     <div>
                                         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
@@ -364,13 +369,11 @@ with tab_single:
                                         <p style="font-size: 0.88rem; color: #cbd5e1; line-height: 1.5; margin-bottom: 12px;">{p.reasoning}</p>
                                     </div>
                                     <div>
-                                        <div style="font-size: 0.78rem; text-transform: uppercase; color: #34d399; font-weight: 700; margin-bottom: 4px;">KEY ADVANTAGES</div>
-                                        {"".join([f'<div class="pill-advantage">✓ {a}</div>' for a in p.key_advantages])}
-                                        <div style="font-size: 0.78rem; text-transform: uppercase; color: #f87171; font-weight: 700; margin-top: 8px; margin-bottom: 4px;">KEY BOTTLENECK</div>
-                                        {"".join([f'<div class="pill-bottleneck">✗ {b}</div>' for b in p.key_bottlenecks])}
+                                        {adv_section}
+                                        {bot_section}
                                     </div>
                                 </div>
-                                """, unsafe_allow_html=True)
+                                """)
 
                         st.markdown("<br>", unsafe_allow_html=True)
 
@@ -388,36 +391,36 @@ with tab_single:
                             <div class="analogy-text">"{item.everyday_analogy}"</div>
                         </div>
                         """ for item in report.extracted_specs])
-                        st.markdown(f"""
+                        render_html(f"""
                         <div class="glass-card">
                             {analogies_html}
                         </div>
-                        """, unsafe_allow_html=True)
+                        """)
 
                     # 7. Final Buying Verdict
                     st.markdown("### ⚖️ Final Buying Verdict")
                     col_buy, col_avoid = st.columns(2)
                     with col_buy:
                         buy_items_html = "".join([f'<li style="margin-bottom: 6px;">{b}</li>' for b in report.buy_if])
-                        st.markdown(f"""
+                        render_html(f"""
                         <div class="glass-card" style="border-top: 4px solid #10b981;">
                             <h4 style="color: #34d399; margin-top: 0;">🟢 Buy If:</h4>
                             <ul style="color: #cbd5e1; line-height: 1.6; margin: 0; padding-left: 20px;">
                                 {buy_items_html}
                             </ul>
                         </div>
-                        """, unsafe_allow_html=True)
+                        """)
 
                     with col_avoid:
                         avoid_items_html = "".join([f'<li style="margin-bottom: 6px;">{a}</li>' for a in report.avoid_if])
-                        st.markdown(f"""
+                        render_html(f"""
                         <div class="glass-card" style="border-top: 4px solid #ef4444;">
                             <h4 style="color: #f87171; margin-top: 0;">🔴 Avoid If:</h4>
                             <ul style="color: #cbd5e1; line-height: 1.6; margin: 0; padding-left: 20px;">
                                 {avoid_items_html}
                             </ul>
                         </div>
-                        """, unsafe_allow_html=True)
+                        """)
 
 
                 except Exception as e:
@@ -483,18 +486,18 @@ with tab_compare:
                 try:
                     comp_report, c_latency, c_prompt_toks, c_out_toks, c_raw_json = compare_products(prod_a_name, prod_a_specs, prod_b_name, prod_b_specs)
 
-                    st.markdown(f"""
+                    render_html(f"""
                     <div class="glass-card" style="border-top: 4px solid #8338ec;">
                         <h3 style="color: #a78bfa; margin-top: 0; font-family: 'Space Grotesk', sans-serif;">🏆 Overall Comparison Verdict</h3>
                         <p style="font-size: 1.1rem; line-height: 1.6; color: #f8fafc;">{comp_report.overall_verdict}</p>
                     </div>
-                    """, unsafe_allow_html=True)
+                    """)
 
                     if comp_report.tradeoffs:
                         st.markdown("### 📊 Category Trade-Off Breakdown")
                         for t in comp_report.tradeoffs:
                             winner_badge = f'<span style="background: rgba(0, 242, 254, 0.2); border: 1px solid #00f2fe; padding: 3px 8px; border-radius: 6px; font-weight: 700; color: #00f2fe;">WINNER: {t.winner}</span>'
-                            st.markdown(f"""
+                            render_html(f"""
                             <div class="glass-card" style="padding: 16px; margin-bottom: 12px;">
                                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
                                     <span style="font-weight: 700; font-size: 1.1rem; color: #f1f5f9;">{t.feature_area}</span>
@@ -502,19 +505,19 @@ with tab_compare:
                                 </div>
                                 <p style="font-size: 0.95rem; color: #cbd5e1; margin: 0;">{t.analysis}</p>
                             </div>
-                            """, unsafe_allow_html=True)
+                            """)
 
                     if comp_report.persona_recommendations:
                         st.markdown("### 🎯 Recommendations by Persona")
                         rec_cols = st.columns(len(comp_report.persona_recommendations))
                         for idx, (persona_name, recommended_choice) in enumerate(comp_report.persona_recommendations.items()):
                             with rec_cols[idx]:
-                                st.markdown(f"""
+                                render_html(f"""
                                 <div class="persona-card" style="text-align: center; justify-content: center;">
                                     <div style="font-size: 0.85rem; color: #94a3b8; text-transform: uppercase;">FOR {persona_name}</div>
                                     <div style="font-size: 1.25rem; font-weight: 800; color: #00f2fe; margin-top: 8px;">{recommended_choice}</div>
                                 </div>
-                                """, unsafe_allow_html=True)
+                                """)
 
                 except Exception as e:
                     err_msg = str(e)
