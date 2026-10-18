@@ -170,7 +170,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 if not API_KEY:
-    st.error("⚠️ GEMINI_API_KEY is not set in `.env`! Please add your key to run live analyses.")
+    st.error("⚠️ GEMINI_API_KEY is not configured! Please provide your key in local `.env` or in Streamlit Cloud Secrets.")
 
 # Navigation Tabs
 tab_single, tab_compare = st.tabs([
@@ -187,70 +187,103 @@ with tab_single:
         st.markdown("### 📥 Input Hardware Specifications")
         st.write("Type or paste any raw product specification sheet, or load one of the calibrated benchmark presets below:")
 
+        # Available Needs Wizard options
+        USE_OPTIONS = [
+            "College & Studies",
+            "Office Work & Multitasking",
+            "Casual / Competitive Gaming",
+            "Heavy Coding & Tech",
+            "Video Editing & Content Creation"
+        ]
+        PRIORITY_OPTIONS = [
+            "Maximum All-Day Battery",
+            "Extreme Speed & Performance",
+            "Lightweight Portability",
+            "Best Budget Value for Money"
+        ]
+
+        # Initialize session state for Single Scanner inputs
+        if "prod_name_field" not in st.session_state:
+            st.session_state.prod_name_field = "Budget Core i5 Laptop"
+        if "raw_specs_field" not in st.session_state:
+            st.session_state.raw_specs_field = "Ultra-Slim 15.6 Laptop. Intel Core i5-1235U (10 cores). 8GB DDR4 RAM, 256GB SSD. 15.6-inch FHD anti-glare display. Intel Iris Xe Graphics. Windows 11."
+        if "primary_use_field" not in st.session_state:
+            st.session_state.primary_use_field = "College & Studies"
+        if "priority_field" not in st.session_state:
+            st.session_state.priority_field = "Best Budget Value for Money"
+
+        def load_single_preset(tc_id: str, default_use: str, default_priority: str):
+            preset = next((c for c in test_cases if c["id"] == tc_id), None)
+            if preset:
+                st.session_state.prod_name_field = preset["name"].split("(")[0].strip()
+                st.session_state.raw_specs_field = preset["input_text"]
+                st.session_state.primary_use_field = default_use
+                st.session_state.priority_field = default_priority
+
         # Preset Quick Loaders
         preset_cols = st.columns(6)
-        selected_preset = None
-
         with preset_cols[0]:
-            if st.button("🍏 MacBook Air M3", use_container_width=True):
-                selected_preset = next((c for c in test_cases if c["id"] == "TC-01"), None)
+            st.button(
+                "🍏 MacBook Air M3",
+                use_container_width=True,
+                on_click=load_single_preset,
+                args=("TC-01", "College & Studies", "Maximum All-Day Battery")
+            )
         with preset_cols[1]:
-            if st.button("⚠️ Budget Core i5", use_container_width=True):
-                selected_preset = next((c for c in test_cases if c["id"] == "TC-02"), None)
+            st.button(
+                "⚠️ Budget Core i5",
+                use_container_width=True,
+                on_click=load_single_preset,
+                args=("TC-02", "College & Studies", "Best Budget Value for Money")
+            )
         with preset_cols[2]:
-            if st.button("🚀 Gaming Fluff", use_container_width=True):
-                selected_preset = next((c for c in test_cases if c["id"] == "TC-03"), None)
+            st.button(
+                "🚀 Gaming Fluff",
+                use_container_width=True,
+                on_click=load_single_preset,
+                args=("TC-03", "Casual / Competitive Gaming", "Extreme Speed & Performance")
+            )
         with preset_cols[3]:
-            if st.button("🎮 Legion Pro 5", use_container_width=True):
-                selected_preset = next((c for c in test_cases if c["id"] == "TC-04"), None)
+            st.button(
+                "🎮 Legion Pro 5",
+                use_container_width=True,
+                on_click=load_single_preset,
+                args=("TC-04", "Casual / Competitive Gaming", "Extreme Speed & Performance")
+            )
         with preset_cols[4]:
-            if st.button("📱 S24 Ultra", use_container_width=True):
-                selected_preset = next((c for c in test_cases if c["id"] == "TC-06"), None)
+            st.button(
+                "📱 S24 Ultra",
+                use_container_width=True,
+                on_click=load_single_preset,
+                args=("TC-06", "Office Work & Multitasking", "Lightweight Portability")
+            )
         with preset_cols[5]:
-            if st.button("👕 Cotton T-Shirt", use_container_width=True):
-                selected_preset = next((c for c in test_cases if c["id"] == "TC-07"), None)
-
-        # Manage session state for inputs
-        if "input_prod_name" not in st.session_state:
-            st.session_state.input_prod_name = "Budget Core i5 Laptop"
-        if "input_raw_specs" not in st.session_state:
-            st.session_state.input_raw_specs = "Ultra-Slim 15.6 Laptop. Intel Core i5-1235U (10 cores). 8GB DDR4 RAM, 256GB SSD. 15.6-inch FHD anti-glare display. Intel Iris Xe Graphics. Windows 11."
-
-        if selected_preset:
-            st.session_state.input_prod_name = selected_preset["name"].split("(")[0].strip()
-            st.session_state.input_raw_specs = selected_preset["input_text"]
+            st.button(
+                "👕 Cotton T-Shirt",
+                use_container_width=True,
+                on_click=load_single_preset,
+                args=("TC-07", "College & Studies", "Best Budget Value for Money")
+            )
 
         # 3-Second Personal Needs Wizard
         col_name, col_use, col_priority = st.columns([1.6, 1.2, 1.2])
         with col_name:
-            prod_name_input = st.text_input("Product Name", value=st.session_state.input_prod_name, key="prod_name_field")
+            prod_name_input = st.text_input("Product Name", key="prod_name_field")
         with col_use:
             primary_use_input = st.selectbox(
                 "🎯 Your Primary Use",
-                [
-                    "College & Studies",
-                    "Office Work & Multitasking",
-                    "Casual / Competitive Gaming",
-                    "Heavy Coding & Tech",
-                    "Video Editing & Content Creation"
-                ],
-                index=0
+                USE_OPTIONS,
+                key="primary_use_field"
             )
         with col_priority:
             priority_input = st.selectbox(
                 "⚡ Your Top Priority",
-                [
-                    "Maximum All-Day Battery",
-                    "Extreme Speed & Performance",
-                    "Lightweight Portability",
-                    "Best Budget Value for Money"
-                ],
-                index=0
+                PRIORITY_OPTIONS,
+                key="priority_field"
             )
 
         raw_specs_input = st.text_area(
             "Raw Manufacturer / Seller Specifications",
-            value=st.session_state.input_raw_specs,
             height=130,
             key="raw_specs_field",
             help="Paste the full promotional description or specs table here."
@@ -262,7 +295,7 @@ with tab_single:
         if not prod_name_input or not raw_specs_input:
             st.warning("Please provide both a product name and specification text.")
         elif not is_api_configured:
-            st.error("Gemini API key is required in .env.")
+            st.error("Gemini API key is required. Please set GEMINI_API_KEY in local .env or Streamlit Cloud Secrets.")
         else:
             with st.spinner("Decoding technical jargon & analyzing hardware risk..."):
                 try:
@@ -460,36 +493,70 @@ with tab_compare:
         def get_tc_text(tc_id: str, fallback: str) -> str:
             return next((c["input_text"] for c in test_cases if c.get("id") == tc_id), fallback)
 
+        def set_comp_preset(a_name: str, a_specs: str, b_name: str, b_specs: str):
+            st.session_state.comp_a_name_field = a_name
+            st.session_state.comp_a_specs_field = a_specs
+            st.session_state.comp_b_name_field = b_name
+            st.session_state.comp_b_specs_field = b_specs
+
+        if "comp_a_name_field" not in st.session_state:
+            st.session_state.comp_a_name_field = "Apple MacBook Air 13 M3"
+        if "comp_a_specs_field" not in st.session_state:
+            st.session_state.comp_a_specs_field = get_tc_text("TC-01", "Apple M3 8-core CPU, 10-core GPU, 16GB RAM, 512GB SSD, 13.6 Liquid Retina 500 nits, 18-hour battery, 1.24kg.")
+        if "comp_b_name_field" not in st.session_state:
+            st.session_state.comp_b_name_field = "Lenovo Legion Pro 5"
+        if "comp_b_specs_field" not in st.session_state:
+            st.session_state.comp_b_specs_field = get_tc_text("TC-04", "AMD Ryzen 7 7745HX, RTX 4070 8GB 140W, 32GB DDR5 RAM, 1TB SSD, 16-inch 240Hz 500 nits, 80Wh battery, 2.55kg.")
+
         # Quick comparison presets
         comp_preset_cols = st.columns(3)
-        if comp_preset_cols[0].button("MacBook Air M3 vs Legion Pro 5", use_container_width=True):
-            st.session_state.comp_a_name = "Apple MacBook Air 13 M3"
-            st.session_state.comp_a_specs = get_tc_text("TC-01", "Apple M3 8-core CPU, 10-core GPU, 16GB RAM, 512GB SSD, 13.6 Liquid Retina 500 nits, 18-hour battery, 1.24kg.")
-            st.session_state.comp_b_name = "Lenovo Legion Pro 5"
-            st.session_state.comp_b_specs = get_tc_text("TC-04", "AMD Ryzen 7 7745HX, RTX 4070 8GB 140W, 32GB DDR5 RAM, 1TB SSD, 16-inch 240Hz 500 nits, 80Wh battery, 2.55kg.")
-
-        if comp_preset_cols[1].button("Galaxy S24 Ultra vs iPad Air M2", use_container_width=True):
-            st.session_state.comp_a_name = "Samsung Galaxy S24 Ultra"
-            st.session_state.comp_a_specs = get_tc_text("TC-06", "Snapdragon 8 Gen 3 for Galaxy, 12GB RAM, 256GB storage, 6.8 Dynamic AMOLED 2X 2600 nits 120Hz, 5000mAh battery, S-Pen, Titanium frame.")
-            st.session_state.comp_b_name = "Apple iPad Air 11-inch M2"
-            st.session_state.comp_b_specs = get_tc_text("TC-05", "Apple M2 chip 8-core CPU, 10-core GPU, 8GB RAM, 128GB storage, 11-inch Liquid Retina 500 nits 60Hz, iPadOS, 28.6Wh battery, 462g.")
-
-        if comp_preset_cols[2].button("Budget Core i5 vs Legion Pro 5", use_container_width=True):
-            st.session_state.comp_a_name = "Budget Core i5 Laptop"
-            st.session_state.comp_a_specs = get_tc_text("TC-02", "Ultra-Slim 15.6 Laptop. Intel Core i5-1235U (10 cores). 8GB DDR4 RAM, 256GB SSD. 15.6-inch FHD anti-glare display. Intel Iris Xe Graphics. Windows 11.")
-            st.session_state.comp_b_name = "Lenovo Legion Pro 5"
-            st.session_state.comp_b_specs = get_tc_text("TC-04", "AMD Ryzen 7 7745HX, RTX 4070 8GB 140W, 32GB DDR5 RAM, 1TB SSD, 16-inch 240Hz 500 nits, 80Wh battery, 2.55kg.")
+        with comp_preset_cols[0]:
+            st.button(
+                "MacBook Air M3 vs Legion Pro 5",
+                use_container_width=True,
+                on_click=set_comp_preset,
+                args=(
+                    "Apple MacBook Air 13 M3",
+                    get_tc_text("TC-01", "Apple M3 8-core CPU, 10-core GPU, 16GB RAM, 512GB SSD, 13.6 Liquid Retina 500 nits, 18-hour battery, 1.24kg."),
+                    "Lenovo Legion Pro 5",
+                    get_tc_text("TC-04", "AMD Ryzen 7 7745HX, RTX 4070 8GB 140W, 32GB DDR5 RAM, 1TB SSD, 16-inch 240Hz 500 nits, 80Wh battery, 2.55kg.")
+                )
+            )
+        with comp_preset_cols[1]:
+            st.button(
+                "Galaxy S24 Ultra vs iPad Air M2",
+                use_container_width=True,
+                on_click=set_comp_preset,
+                args=(
+                    "Samsung Galaxy S24 Ultra",
+                    get_tc_text("TC-06", "Snapdragon 8 Gen 3 for Galaxy, 12GB RAM, 256GB storage, 6.8 Dynamic AMOLED 2X 2600 nits 120Hz, 5000mAh battery, S-Pen, Titanium frame."),
+                    "Apple iPad Air 11-inch M2",
+                    get_tc_text("TC-05", "Apple M2 chip 8-core CPU, 10-core GPU, 8GB RAM, 128GB storage, 11-inch Liquid Retina 500 nits 60Hz, iPadOS, 28.6Wh battery, 462g.")
+                )
+            )
+        with comp_preset_cols[2]:
+            st.button(
+                "Budget Core i5 vs Legion Pro 5",
+                use_container_width=True,
+                on_click=set_comp_preset,
+                args=(
+                    "Budget Core i5 Laptop",
+                    get_tc_text("TC-02", "Ultra-Slim 15.6 Laptop. Intel Core i5-1235U (10 cores). 8GB DDR4 RAM, 256GB SSD. 15.6-inch FHD anti-glare display. Intel Iris Xe Graphics. Windows 11."),
+                    "Lenovo Legion Pro 5",
+                    get_tc_text("TC-04", "AMD Ryzen 7 7745HX, RTX 4070 8GB 140W, 32GB DDR5 RAM, 1TB SSD, 16-inch 240Hz 500 nits, 80Wh battery, 2.55kg.")
+                )
+            )
 
         col_a, col_b = st.columns(2)
         with col_a:
             st.markdown("#### 📦 Product A")
-            prod_a_name = st.text_input("Product A Name", value=st.session_state.get("comp_a_name", "Apple MacBook Air 13 M3"))
-            prod_a_specs = st.text_area("Product A Raw Specifications", value=st.session_state.get("comp_a_specs", "Apple M3 8-core CPU, 10-core GPU, 16GB RAM, 512GB SSD, 13.6 Liquid Retina 500 nits, 18-hour battery, 1.24kg."), height=160)
+            prod_a_name = st.text_input("Product A Name", key="comp_a_name_field")
+            prod_a_specs = st.text_area("Product A Raw Specifications", key="comp_a_specs_field", height=160)
 
         with col_b:
             st.markdown("#### 📦 Product B")
-            prod_b_name = st.text_input("Product B Name", value=st.session_state.get("comp_b_name", "Lenovo Legion Pro 5"))
-            prod_b_specs = st.text_area("Product B Raw Specifications", value=st.session_state.get("comp_b_specs", "AMD Ryzen 7 7745HX, RTX 4070 8GB 140W, 32GB DDR5 RAM, 1TB SSD, 16-inch 240Hz 500 nits, 80Wh battery, 2.55kg."), height=160)
+            prod_b_name = st.text_input("Product B Name", key="comp_b_name_field")
+            prod_b_specs = st.text_area("Product B Raw Specifications", key="comp_b_specs_field", height=160)
 
         compare_btn = st.button("⚔️ GENERATE OBJECTIVE COMPARISON", use_container_width=True)
 
@@ -497,7 +564,7 @@ with tab_compare:
         if not prod_a_name or not prod_a_specs or not prod_b_name or not prod_b_specs:
             st.warning("Please provide product names and specification text for both Product A and Product B.")
         elif not is_api_configured:
-            st.error("Gemini API key is required in .env.")
+            st.error("Gemini API key is required. Please set GEMINI_API_KEY in local .env or Streamlit Cloud Secrets.")
         else:
             with st.spinner("Analyzing trade-offs and synthesizing persona verdicts..."):
                 try:
