@@ -17,7 +17,7 @@ import importlib
 
 import schemas
 importlib.reload(schemas)
-from schemas import SingleProductReport, ProductComparisonReport, PersonalMatchEvaluation
+from schemas import SingleProductReport, ProductComparisonReport
 
 import ui_components
 importlib.reload(ui_components)
@@ -43,7 +43,7 @@ FALLBACK_MODELS = [
 ]
 
 if API_KEY:
-    genai.configure(api_key=API_KEY, transport="rest")
+    genai.configure(api_key=API_KEY, transport="rest")  # type: ignore
     is_api_configured = True
 else:
     is_api_configured = False
@@ -51,10 +51,10 @@ else:
 # Resilient Generation Helper with Auto-Failover
 def generate_with_fallback(full_prompt: str):
     """Executes generate_content across models with automatic failover if a model's daily quota (429) is exhausted."""
-    last_exception = None
+    last_exception: Exception | None = None
     for model_name in FALLBACK_MODELS:
         try:
-            m = genai.GenerativeModel(
+            m = genai.GenerativeModel(  # type: ignore
                 model_name,
                 generation_config={
                     "response_mime_type": "application/json",
@@ -73,7 +73,9 @@ def generate_with_fallback(full_prompt: str):
                 continue
             else:
                 raise e
-    raise last_exception
+    if last_exception is not None:
+        raise last_exception
+    raise RuntimeError("Generation failed across all fallback models.")
 
 # Inject Three.js 3D Background, Fixed Top-Left Navbar & Cyberpunk Styling
 render_3d_electronics_background()
